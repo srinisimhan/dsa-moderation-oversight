@@ -1,0 +1,26 @@
+variable,type,description,unit_or_range
+week_start,date,Monday starting date of the reporting week.,
+complete_study_week,boolean,True when the full Monday-Sunday week falls within the study period.,
+platform_name,categorical,Platform name reported in the DSA data.,
+category,categorical,Broad DSA violation category.,
+represented_sors,integer,Number of Statements of Reasons represented by aggregate rows.,count
+fully_auto_sors,integer,Represented SoRs with a fully automated final decision.,count
+partially_auto_sors,integer,Represented SoRs with a partially automated final decision.,count
+not_auto_sors,integer,Represented SoRs with a non-automated final decision.,count
+content_removed_sors,integer,Represented SoRs where the content-removal flag is true.,count
+account_terminated_sors,integer,Represented SoRs with an account termination action.,count
+account_suspended_sors,integer,Represented SoRs with an account suspension action.,count
+service_terminated_sors,integer,Represented SoRs with a service/provision termination action.,count
+service_suspended_sors,integer,Represented SoRs with a service/provision suspension action.,count
+account_or_service_restriction_sors,integer,Represented SoRs with account or service suspension/termination.,count
+fully_automated_rate,float,fully_auto_sors / represented_sors.,0-1
+partially_automated_rate,float,partially_auto_sors / represented_sors.,0-1
+not_automated_rate,float,not_auto_sors / represented_sors.,0-1
+content_removed_rate,float,content_removed_sors / represented_sors.,0-1
+account_terminated_rate,float,account_terminated_sors / represented_sors.,0-1
+account_suspended_rate,float,account_suspended_sors / represented_sors.,0-1
+service_terminated_rate,float,service_terminated_sors / represented_sors.,0-1
+service_suspended_rate,float,service_suspended_sors / represented_sors.,0-1
+account_or_service_restriction_rate,float,account_or_service_restriction_sors / represented_sors.,0-1
+study_start,date,Inclusive study-period start date (summary file only).,
+study_end,date,Inclusive study-period end date (summary file only).,

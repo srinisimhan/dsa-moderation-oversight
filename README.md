@@ -32,6 +32,18 @@ dsa-moderation-oversight/
     └── source_manifest.csv
 ```
 
+
+## Direct data access
+
+The processed analytical datasets used in this project are available directly in this repository:
+
+- [Weekly platform × category dataset](data/dsa_weekly_segments.csv)
+- [Six-month platform × category summary](data/dsa_segment_summary.csv)
+- [Data dictionary](data/data_dictionary.csv)
+- [Source provenance manifest](metadata/source_manifest.csv)
+
+The same analytical datasets can be independently reproduced from the official European Commission source files using the build instructions below.
+
 ## Rebuild the dataset
 Python 3.11+ is recommended.
 

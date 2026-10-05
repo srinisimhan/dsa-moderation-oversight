@@ -1,0 +1,4 @@
+contamination,mean_candidates_per_seed,min_candidates_per_seed,max_candidates_per_seed,stable_candidate_count,primary_shortlist_inside_stable_candidate_region
+0.03,34.0,34,34,30,18
+0.05,57.0,57,57,52,18
+0.1,113.0,113,113,99,18

@@ -1,0 +1,66 @@
+{
+  "data_validation": {
+    "weekly_rows": 2228,
+    "summary_rows": 86,
+    "platforms": 7,
+    "categories": 14,
+    "complete_weeks": 26,
+    "first_complete_week": "2026-03-02",
+    "last_complete_week": "2026-08-24",
+    "platform_coverage_matches": true,
+    "weekly_duplicate_keys": 0,
+    "summary_duplicate_keys": 0,
+    "weekly_required_missing": 0,
+    "summary_required_missing": 0,
+    "weekly_invalid_rate_cells": 0,
+    "summary_invalid_rate_cells": 0,
+    "weekly_represented_sors": 430511443,
+    "summary_represented_sors": 430511443,
+    "totals_reconcile": true
+  },
+  "source_validation": {
+    "manifest_rows": 6,
+    "checksum_rows_verified": 6,
+    "sha1_rows_matching": 6,
+    "all_checksums_verified": true,
+    "manifest_represented_sors": 430511443
+  },
+  "rq1": {
+    "segment_count": 86,
+    "categories_4plus": 13,
+    "median_rate_range": 0.9277942969798583,
+    "hhi": 0.2899599286959279,
+    "hhi_excluding_other": 0.198970414994362
+  },
+  "rq2": {
+    "comparable_segments": 86,
+    "median_abs_divergence": 0.356478950210243,
+    "large_divergence_segments": 50,
+    "mean_signed_divergence": 0.10398869087975957,
+    "signed_divergence_ci95_low": -0.003437931586225046,
+    "signed_divergence_ci95_high": 0.21141531334574418,
+    "secondary_t_statistic": 1.9246381583137133,
+    "secondary_p_value": 0.0576199309590817
+  },
+  "rq3": {
+    "reliable_observations": 1203,
+    "eligible_series": 50,
+    "reliable_weeks": 25,
+    "alerts": 30,
+    "affected_series": 18
+  },
+  "rq4": {
+    "eligible_observations": 1130,
+    "stable_anomalies": 18,
+    "selected_10_of_10": 17,
+    "selected_9_of_10": 1,
+    "overlap_volume": 0,
+    "overlap_peer": 0,
+    "overlap_temporal": 12
+  },
+  "rq4_sensitivity": {
+    "mean_pairwise_seed_jaccard": 0.8887675931154193,
+    "min_pairwise_seed_jaccard": 0.7391304347826086,
+    "max_pairwise_seed_jaccard": 1.0
+  }
+}

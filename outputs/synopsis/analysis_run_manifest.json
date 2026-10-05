@@ -1,0 +1,55 @@
+{
+  "python_version": "3.13.15",
+  "pandas_version": "2.2.3",
+  "numpy_version": "2.1.3",
+  "scipy_version": "1.16.3",
+  "scikit_learn_version": "1.6.1",
+  "rq3_min_weekly_volume": 1000,
+  "rq3_min_reliable_comparisons": 12,
+  "rq3_robust_z_threshold": 3.5,
+  "rq3_min_absolute_change": 0.1,
+  "rq3_volume_sensitivity": [
+    500,
+    1000,
+    5000
+  ],
+  "rq4_features": [
+    "log1p_represented_sors",
+    "fully_automated_rate",
+    "content_removed_rate",
+    "account_or_service_restriction_rate",
+    "weekly_peer_divergence_abs",
+    "automation_change_abs"
+  ],
+  "rq4_n_estimators": 300,
+  "rq4_contamination": 0.05,
+  "rq4_seeds": [
+    11,
+    22,
+    33,
+    44,
+    55,
+    66,
+    77,
+    88,
+    99,
+    111
+  ],
+  "rq4_top_k": 20,
+  "rq4_stable_min_seeds": 8,
+  "rq4_top_k_sensitivity": [
+    10,
+    20,
+    30
+  ],
+  "rq4_stability_threshold_sensitivity": [
+    7,
+    8,
+    9
+  ],
+  "rq4_contamination_sensitivity": [
+    0.03,
+    0.05,
+    0.1
+  ]
+}

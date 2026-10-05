@@ -1,0 +1,17 @@
+metric,validation_benchmark,current_result,matches_benchmark
+rq1_categories_4plus,13.0,13.0,True
+rq1_median_rate_range,0.928,0.9277942969798583,True
+rq2_comparable_segments,86.0,86.0,True
+rq2_median_abs_divergence,0.356,0.356478950210243,True
+rq2_large_divergence_segments,50.0,50.0,True
+rq3_reliable_observations,1203.0,1203.0,True
+rq3_eligible_series,50.0,50.0,True
+rq3_alerts,30.0,30.0,True
+rq3_affected_series,18.0,18.0,True
+rq4_eligible_observations,1130.0,1130.0,True
+rq4_stable_anomalies,18.0,18.0,True
+rq4_selected_10_of_10,17.0,17.0,True
+rq4_selected_9_of_10,1.0,1.0,True
+rq4_overlap_volume,0.0,0.0,True
+rq4_overlap_peer,0.0,0.0,True
+rq4_overlap_temporal,12.0,12.0,True

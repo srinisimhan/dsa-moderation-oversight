@@ -1,0 +1,30 @@
+variable,type,description,unit_or_range,generated_in,relevance
+automated_exposure_share,float,Segment fully automated SoRs divided by total fully automated SoRs across all platform-category segments.,0-1,RQ1,Measures each platform-category segment's share of total fully automated moderation exposure.
+cumulative_exposure_share,float,Cumulative automated exposure share after sorting platform-category segments from highest to lowest exposure.,0-1,RQ1,Shows how concentrated fully automated moderation exposure is among the highest-volume segments.
+platform_count,integer,Number of selected platforms reporting the broad violation category.,count,RQ1,Describes cross-platform category coverage.
+min_rate,float,Minimum fully automated moderation rate observed across platforms for a category.,0-1,RQ1,Lower bound used to measure cross-platform variation within a category.
+max_rate,float,Maximum fully automated moderation rate observed across platforms for a category.,0-1,RQ1,Upper bound used to measure cross-platform variation within a category.
+rate_range,float,Difference between the maximum and minimum fully automated moderation rate across platforms within a category.,0-1,RQ1,Quantifies cross-platform variation in automation exposure.
+peer_median_automation_rate,float,"Median fully automated rate of other selected platforms reporting the same category, excluding the focal platform.",0-1,RQ2,Provides the leave-one-platform-out same-category peer benchmark.
+peer_support_count,integer,Number of peer platforms contributing to the leave-one-platform-out median.,count,RQ2,Reports the amount of peer support behind each divergence estimate.
+peer_divergence_signed,float,Focal platform fully automated rate minus the leave-one-platform-out same-category peer median.,-1 to 1,RQ2,Preserves the direction of deviation from same-category peers.
+peer_divergence_abs,float,Absolute value of signed peer divergence.,0-1,RQ2,Measures the magnitude of same-category peer divergence irrespective of direction.
+large_divergence_flag,boolean,True when absolute peer divergence exceeds 0.25.,True/False,RQ2,Operational flag for segments with more than 25 percentage-point divergence from peers.
+previous_week_start,date,Start date of the preceding observation within the same platform-category series.,date,RQ3,Supports verification of exact seven-day temporal adjacency.
+previous_week_volume,float,Represented SoR volume of the previous weekly observation in the same platform-category series.,count,RQ3,Used with current-week volume to determine whether a week-to-week comparison is reliable.
+automation_change,float,Current week's fully automated rate minus the previous week's fully automated rate for the same platform-category series.,-1 to 1,RQ3,Primary signed measure of week-over-week automation-rate change.
+automation_change_abs,float,Absolute value of the week-over-week automation-rate change.,0-1,RQ3/RQ4,Measures operational magnitude of temporal change and is also an RQ4 model feature.
+days_since_previous,integer,Number of days between the current and previous weekly observations in the same series.,days,RQ3,Ensures temporal comparisons use exactly seven-day adjacency.
+reliable_comparisons,integer,Number of reliable week-to-week comparisons available for the platform-category series under the selected volume threshold.,count,RQ3,Determines whether a series satisfies the minimum 12-comparison eligibility rule.
+robust_change_score,float,Within-series robust temporal score calculated as 0.6745 times change minus median change divided by MAD.,unbounded; NaN if MAD = 0,RQ3,Identifies changes unusual relative to the platform-category series' own temporal behavior.
+temporal_alert,boolean,True when absolute robust change score is at least 3.5 and absolute automation change is at least 0.10.,True/False,RQ3,Operational temporal-instability signal requiring both statistical unusualness and material change.
+weekly_peer_median_automation_rate,float,Same-week same-category leave-one-platform-out median fully automated rate among eligible RQ4 observations.,0-1,RQ4,Provides the weekly peer benchmark used to construct RQ4 peer divergence.
+weekly_peer_support_count,integer,Number of peer platforms contributing to the same-week same-category peer median.,count,RQ4,Reports support behind the weekly peer comparison.
+weekly_peer_divergence_abs,float,Absolute difference between the focal observation's fully automated rate and the same-week same-category leave-one-platform-out peer median.,0-1,RQ4,One of the six Isolation Forest features.
+log1p_represented_sors,float,Natural logarithm of one plus represented SoR volume.,non-negative transformed value,RQ4,Volume feature transformed to reduce scale dominance in the multivariate model.
+seed_inclusion_count,integer,Number of the ten Isolation Forest runs in which the observation appears in the top-20 audit-priority list.,0-10,RQ4,Primary measure of selection stability across random seeds.
+stable_anomaly,boolean,True when an observation appears in the top-20 list in at least 8 of 10 Isolation Forest runs.,True/False,RQ4,Defines the final stable audit-priority shortlist.
+anomaly_score,float,"Mean negative Isolation Forest decision-function score across the ten seeded runs, oriented so higher values indicate greater audit priority.",continuous; higher = more anomalous,RQ4,Provides a continuous audit-priority score for ranking observations.
+anomaly_rank,integer,"Rank of the mean anomaly score, with rank 1 representing the highest audit priority.",positive integer,RQ4,Provides an operational ordering of candidate observations.
+largest_deviation_feature,categorical,RQ4 feature with the largest absolute robust-scaled deviation for the observation.,one of six model features,RQ4,Provides transparent feature context without claiming causal model attribution.
+largest_abs_scaled_deviation,float,Absolute robust-scaled magnitude of the observation's largest-deviation feature.,>= 0,RQ4,Quantifies the strength of the reported feature-level contextual deviation.

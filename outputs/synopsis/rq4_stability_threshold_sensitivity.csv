@@ -1,0 +1,4 @@
+minimum_seed_count,candidate_count,overlap_with_primary,jaccard_vs_primary
+7,20,18,0.9
+8,18,18,1.0
+9,18,18,1.0

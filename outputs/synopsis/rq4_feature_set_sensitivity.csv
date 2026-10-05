@@ -1,0 +1,7 @@
+feature_removed,stable_count,overlap_with_primary,jaccard_vs_primary
+log1p_represented_sors,16,15,0.7894736842105263
+fully_automated_rate,18,17,0.8947368421052632
+content_removed_rate,17,16,0.8421052631578947
+account_or_service_restriction_rate,17,14,0.6666666666666666
+weekly_peer_divergence_abs,18,17,0.8947368421052632
+automation_change_abs,15,4,0.13793103448275862

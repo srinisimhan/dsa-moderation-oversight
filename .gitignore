@@ -221,3 +221,6 @@ __marimo__/
 
 # DSA source-download cache
 .cache_dsa/
+
+# Phase 2 evidence products are archived in project Drive, not GitHub
+outputs/interim/eda/

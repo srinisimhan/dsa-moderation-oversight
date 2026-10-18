@@ -246,3 +246,25 @@ The operational shortlist is intended to help prioritize human review, not to cl
 ## Source citation
 
 European Commission-DG CONNECT. (2023). *Digital Services Act Transparency Database*. Directorate-General for Communications Networks, Content and Technology. https://doi.org/10.2906/134353607485211
+
+## Phase 2 — Exploratory Data Analysis (EDA)
+
+Phase 2 provides a reproducible, descriptive EDA of the **existing, validated** DSA datasets and RQ1–RQ4 outputs. It covers 26 approved investigations: data quality and coverage, univariate distributions, bivariate relationships, six-feature multivariate diagnostics, weekly trends, and research-question-specific context. No additional anomaly models are fitted and the frozen analysis parameters are unchanged.
+
+**Code**
+
+- [`scripts/run_interim_eda.py`](scripts/run_interim_eda.py) — generates Phase 2 tables and figures.
+- [`scripts/validate_interim_eda.py`](scripts/validate_interim_eda.py) — validates generated results and checks frozen inputs.
+- [`requirements_eda.txt`](requirements_eda.txt) — versions of the EDA dependencies used for the Colab run.
+
+**Reproduce from the already tracked processed data and RQ outputs** (no raw archive download necessary):
+
+```bash
+python -m pip install -r requirements_eda.txt
+MPLBACKEND=Agg python scripts/run_interim_eda.py --stage all
+MPLBACKEND=Agg python scripts/validate_interim_eda.py
+```
+
+The EDA generator writes tables, figures and metadata to `outputs/interim/eda/` without modifying the inputs. The validated Colab run completed 26 investigations and passed 144 numerical/structural checks. Its generated results, full appendix, charts, validation evidence and reports are retained in the project Drive folder rather than duplicated in GitHub. For fully independent regeneration of the processed dataset and frozen RQ outputs, follow the existing Layer 1 and Layer 2 instructions above.
+
+**Interpretation boundaries:** Weekly platform-category rows are not independent individual Statements of Reasons; weighted aggregate rates are not the same as averages of weekly rates. Category/reporting coverage and reliable-comparison eligibility constrain comparisons, and peer divergence or Isolation Forest prioritisation must not be interpreted as confirmed moderation mistakes, causal effects or legal non-compliance.

@@ -268,3 +268,17 @@ MPLBACKEND=Agg python scripts/validate_interim_eda.py
 The EDA generator writes tables, figures and metadata to `outputs/interim/eda/` without modifying the inputs. The validated Colab run completed 26 investigations and passed 144 numerical/structural checks. Its generated results, full appendix, charts, validation evidence and reports are retained in the project Drive folder rather than duplicated in GitHub. For fully independent regeneration of the processed dataset and frozen RQ outputs, follow the existing Layer 1 and Layer 2 instructions above.
 
 **Interpretation boundaries:** Weekly platform-category rows are not independent individual Statements of Reasons; weighted aggregate rates are not the same as averages of weekly rates. Category/reporting coverage and reliable-comparison eligibility constrain comparisons, and peer divergence or Isolation Forest prioritisation must not be interpreted as confirmed moderation mistakes, causal effects or legal non-compliance.
+
+## Optional RQ4 model comparison — LOF and One-Class SVM
+
+The frozen Isolation Forest pipeline remains the **primary** RQ4 analysis. For an optional, post-hoc model-comparison exercise, [`scripts/run_rq4_model_benchmark.py`](scripts/run_rq4_model_benchmark.py) compares its **saved** scores with Local Outlier Factor and One-Class SVM, on exactly the same eligible observations and six features.
+
+```bash
+python -m pip install -r requirements.txt
+python -m unittest discover -s tests -p 'test_rq4_model_benchmark.py' -v
+python scripts/run_rq4_model_benchmark.py
+```
+
+The extension saves comparison, top-20 rankings, parameter sensitivity, all-rankings and run metadata under `outputs/interim/model_benchmarks/` (not committed to GitHub). Full setup and limitations: [`docs/RQ4_CHALLENGER_BENCHMARK.md`](docs/RQ4_CHALLENGER_BENCHMARK.md).
+
+**Interpretation:** Top-20 overlap, Jaccard similarity and Spearman correlation assess ranking agreement; parameter variants assess shortlist sensitivity. They do **not** establish accuracy, F1, moderation errors or legal non-compliance. The extension does not refit or replace frozen Isolation Forest outputs.

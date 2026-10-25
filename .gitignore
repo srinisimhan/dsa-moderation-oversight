@@ -224,3 +224,6 @@ __marimo__/
 
 # Phase 2 evidence products are archived in project Drive, not GitHub
 outputs/interim/eda/
+
+# Optional RQ4 challenger analysis outputs: archive in Drive, not GitHub
+outputs/interim/model_benchmarks/

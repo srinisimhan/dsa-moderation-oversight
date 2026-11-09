@@ -223,11 +223,53 @@ with two:
 with three:
     p,c,start,end,q=filters('rq3',dates=True,search=True)
     alerts_only=st.checkbox('Show alerts only',value=False)
-    summary,f,g,d,_=rq3(p,c,start,end,alerts_only,q)
+    summary,_,_,d,_=rq3(p,c,start,end,alerts_only,q)
     st.markdown(summary)
-    x,y=st.columns(2);x.plotly_chart(f,use_container_width=True);y.plotly_chart(g,use_container_width=True)
+
+    # Chart-only series selection: never modifies the frozen table or export.
+    plot_data=filtered(DATA['weekly'],p,c,start,end).copy()
+    plot_data['series_key']=plot_data['platform_name'].astype(str)+' | '+plot_data['category'].astype(str)
+    series_order=(plot_data.groupby('series_key')['temporal_alert']
+                  .sum().sort_values(ascending=False).index.tolist())
+    selected=st.multiselect(
+        'Series to plot (charts only; table and CSV still include all filtered records)',
+        options=series_order,
+        default=series_order[:3],
+        format_func=lambda s: s.split(' | ',1)[0]+' | '+s.split(' | ',1)[1].replace('STATEMENT_CATEGORY_','').replace('_',' ').title(),
+        key='rq3_chart_series')
+    zoom=st.radio('Robust-change score axis',
+                  ['Zoom: -10 to +10','Zoom: -25 to +25','Full range'],
+                  horizontal=True,key='rq3_score_zoom')
+    if selected:
+        displayed=plot_data[plot_data['series_key'].isin(selected)].sort_values('week_start')
+        displayed['series_label']=(displayed['platform_name'].astype(str)+' | '+
+             displayed['category'].str.replace('STATEMENT_CATEGORY_','',regex=False)
+             .str.replace('_',' ',regex=False).str.title())
+        f=px.line(displayed,x='week_start',y='fully_automated_rate',
+                  color='series_label',markers=True,
+                  hover_data=['platform_name','category','represented_sors'],
+                  title='Weekly fully automated moderation rate (selected series)')
+        f.update_layout(height=430,legend_title_text='',yaxis_tickformat='.0%')
+        scores=displayed.dropna(subset=['robust_change_score'])
+        g=px.scatter(scores,x='week_start',y='robust_change_score',
+                     color='series_label',symbol='temporal_alert',
+                     hover_data=['platform_name','category','robust_change_score'],
+                     title='Robust change scores (original values)')
+        g.update_layout(height=430,legend_title_text='')
+        if zoom != 'Full range':
+            bound=10 if zoom=='Zoom: -10 to +10' else 25
+            g.update_yaxes(range=[-bound,bound])
+            outside=int((scores['robust_change_score'].abs()>bound).sum())
+            st.caption(f'**Display-only zoom:** {outside} plotted points fall outside ±{bound}. '
+                       'They remain unchanged in the frozen data, tables and CSV export. '
+                       'Choose Full range to see every plotted point.')
+        x,y=st.columns(2)
+        x.plotly_chart(f,use_container_width=True)
+        y.plotly_chart(g,use_container_width=True)
+    else:
+        st.info('Select at least one series to display the charts. Filtered records remain in the table below.')
     table(d,'rq3_visible')
-    st.caption('Source: frozen rq3_reliable_weekly.csv and rq3_temporal_alerts.csv. Alerts are precomputed, not recalculated.')
+    st.caption('Source: frozen rq3_reliable_weekly.csv and rq3_temporal_alerts.csv. Alerts are precomputed, not recalculated. Chart selection does not filter the table or CSV.')
 with four:
     mode=st.radio('Research population',['Original full-period (in-sample)','Holdout: 6 July 2026 (primary)','Holdout: 20 July 2026 (overlapping sensitivity)'],horizontal=False)
     p,c,_,_,q=filters('rq4',search=True)

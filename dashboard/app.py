@@ -271,14 +271,51 @@ with three:
     table(d,'rq3_visible')
     st.caption('Source: frozen rq3_reliable_weekly.csv and rq3_temporal_alerts.csv. Alerts are precomputed, not recalculated. Chart selection does not filter the table or CSV.')
 with four:
-    mode=st.radio('Research population',['Original full-period (in-sample)','Holdout: 6 July 2026 (primary)','Holdout: 20 July 2026 (overlapping sensitivity)'],horizontal=False)
+    mode=st.radio('Research population',[
+        'Original full-period (in-sample)',
+        'Holdout: 6 July 2026 (primary)',
+        'Holdout: 20 July 2026 (overlapping sensitivity)'],
+        horizontal=False)
     p,c,_,_,q=filters('rq4',search=True)
     a,b=st.columns(2)
     start=a.text_input('From date (optional, YYYY-MM-DD)',key='rq4_start')
     end=b.text_input('Through date (optional, YYYY-MM-DD)',key='rq4_end')
     stable=st.checkbox('Stable cases only (≥8/10 seeds)',value=True)
-    summary,f,d,compare,sensitivity,_=rq4(mode,p,c,start,end,stable,q)
-    st.markdown(summary);st.plotly_chart(f,use_container_width=True)
+    summary,_,d,compare,sensitivity,_=rq4(mode,p,c,start,end,stable,q)
+    st.markdown(summary)
+
+    if mode=='Original full-period (in-sample)':
+        rank_col,score_col,seed_col,flag_col='anomaly_rank','anomaly_score','seed_inclusion_count','stable_anomaly'
+        st.info('IN-SAMPLE REFERENCE — rankings were generated on the original full-period eligible population. Not a held-out evaluation.')
+    else:
+        rank_col,score_col,seed_col,flag_col='if_rank','if_priority_score','if_seed_top20_count','if_stable_8of10'
+        if mode=='Holdout: 6 July 2026 (primary)':
+            st.info('PRIMARY CHRONOLOGICAL HOLDOUT — earlier weeks used for training; later weeks scored without refitting.')
+        else:
+            st.info('OVERLAPPING SENSITIVITY HOLDOUT — this window overlaps the primary holdout and is not an independent replication.')
+
+    # Presentation-only chart. The returned table and CSV keep original field names and values.
+    if d.empty:
+        st.info('No cases match the selected filters. Adjust the filters or disable Stable cases only.')
+    else:
+        top=d.sort_values([rank_col,'week_start'],na_position='last').head(20).copy()
+        top['readable_category']=(top['category'].astype(str)
+            .str.replace('STATEMENT_CATEGORY_','',regex=False)
+            .str.replace('_',' ',regex=False).str.title())
+        top['case_label']=(top[rank_col].astype(str).str.replace(r'\.0$','',regex=True)
+            .radd('Rank ')+' | '+top['platform_name'].astype(str)
+            +' | '+top['readable_category']+' | '+top['week_start'].astype(str))
+        top['case_label']=pd.Categorical(top['case_label'],categories=top['case_label'].iloc[::-1],ordered=True)
+        fig=px.bar(top,x=score_col,y='case_label',orientation='h',
+            hover_data={rank_col:True,seed_col:True,'platform_name':True,
+                        'category':True,'week_start':True,'represented_sors':True},
+            title='Top 20 visible audit-priority records (original ranks and scores)',
+            labels={score_col:'Frozen Isolation Forest score','case_label':'Record'})
+        fig.update_layout(height=max(440,32*len(top)+130),margin=dict(l=15,r=20,t=65,b=30),showlegend=False)
+        st.plotly_chart(fig,use_container_width=True)
+        st.caption('Display order uses the original population rank. Filtering does not recalculate scores or ranks. Scores across separately fitted populations should not be compared as calibrated probabilities.')
+
+    st.subheader('Original research records')
     table(d,'rq4_visible')
     with st.expander('Precomputed model comparison (same population only)'):
         st.dataframe(compare,use_container_width=True,hide_index=True)
@@ -290,4 +327,4 @@ with four:
     st.caption('Original and held-out rankings are separate historical populations. Largest robust-scaled deviation is diagnostic context, not SHAP or causal attribution.')
 st.divider()
 st.subheader('Provenance and limitations')
-st.markdown('Frozen outputs from the approved QM640 research handoff; see `docs/APPROVED_RESEARCH_DECISIONS.md`, `outputs/synopsis/analysis_run_manifest.json`, `outputs/final/research_validation/final_validation_manifest.json` and `SHA256_MANIFEST.json`. The original source is the European Commission DSA Transparency Database (CC BY 4.0). The package excludes raw monthly Parquet archives. No model fitting or new experiments occur in this application. The observational census is bounded and not an independent random sample. Category peers may not be exchangeable. Same-week peer features assume availability before batch scoring. Holdout windows overlap and are not independent. There are no verified moderation-error or audit-yield labels. This is not a live regulatory decision system.')
+st.markdown('Frozen outputs from the approved QM640 research handoff; see `docs/APPROVED_RESEARCH_DECISIONS.md`, `outputs/synopsis/analysis_run_manifest.json`, `outputs/final/research_validation/final_validation_manifest.json` and `dashboard/FROZEN_DASHBOARD_INPUT_SHA256.json`. The original source is the European Commission DSA Transparency Database (CC BY 4.0). The package excludes raw monthly Parquet archives. No model fitting or new experiments occur in this application. The observational census is bounded and not an independent random sample. Category peers may not be exchangeable. Same-week peer features assume availability before batch scoring. Holdout windows overlap and are not independent. There are no verified moderation-error or audit-yield labels. This is not a live regulatory decision system.')

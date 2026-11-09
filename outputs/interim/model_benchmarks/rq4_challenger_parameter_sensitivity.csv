@@ -1,0 +1,5 @@
+model,parameter_variant,overlap_with_model_default_top_k,jaccard_with_model_default_top_k
+Local Outlier Factor,n_neighbors=10,6,0.17647058823529413
+Local Outlier Factor,n_neighbors=35,13,0.48148148148148145
+One-Class SVM,nu=0.03,16,0.6666666666666666
+One-Class SVM,nu=0.10,14,0.5384615384615384

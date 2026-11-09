@@ -1,0 +1,26 @@
+{
+  "source": "outputs/synopsis/rq4_scored_observations.csv",
+  "eligible_rows": 1130,
+  "features": [
+    "log1p_represented_sors",
+    "fully_automated_rate",
+    "content_removed_rate",
+    "account_or_service_restriction_rate",
+    "weekly_peer_divergence_abs",
+    "automation_change_abs"
+  ],
+  "top_k": 20,
+  "if_primary": "Imported frozen 10-seed mean anomaly_score; no IF refit",
+  "if_frozen_stable_shortlist_size": 18,
+  "preprocessing": "RobustScaler fitted to same six features on same eligible population",
+  "library_versions": {
+    "numpy": "2.1.3",
+    "pandas": "2.2.3",
+    "scipy": "1.16.3",
+    "scikit_learn": "1.6.1"
+  },
+  "LOF": "n_neighbors=20; p=2; contamination=.05; in-sample negative_outlier_factor_",
+  "OneClassSVM": "RBF; gamma=scale; nu=.05; in-sample negative decision_function",
+  "evaluation": "unlabelled ranking agreement and parameter sensitivity; no accuracy/F1",
+  "caution": "Correlated scores/overlap neither prove correctness nor moderation errors"
+}

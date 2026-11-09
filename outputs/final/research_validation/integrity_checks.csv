@@ -1,0 +1,10 @@
+check,expected,observed,pass
+weekly_processed_rows,2228,2228,True
+full_period_segments,86,86,True
+represented_SoRs,430511443,430511443,True
+RQ3_reliable_comparisons,1203,1203,True
+RQ4_eligible,1130,1130,True
+RQ4_stable,18,18,True
+frozen_scored_csv_rows,1130,1130,True
+frozen_scored_stable,18,18,True
+base_weekly_csv_rows,2228,2228,True

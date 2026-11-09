@@ -197,10 +197,42 @@ def filters(key, dates=False, search=False):
     return p,c,start,end,q
 
 def table(d,key):
-    st.dataframe(d,use_container_width=True,hide_index=True,on_select='ignore')
+        display_names = {
+        'week_start': 'Week starting',
+        'platform_name': 'Platform',
+        'category': 'DSA category',
+        'represented_sors': 'Represented SoRs',
+        'fully_auto_sors': 'Fully automated SoRs',
+        'partially_auto_sors': 'Partially automated SoRs',
+        'not_auto_sors': 'Not automated SoRs',
+        'fully_automated_rate': 'Fully automated rate',
+        'robust_change_score': 'Robust change score',
+        'temporal_alert': 'Temporal alert',
+        'anomaly_score': 'Anomaly score',
+        'anomaly_rank': 'Original rank',
+        'if_priority_score': 'IF priority score',
+        'if_rank': 'Holdout rank',
+        'seed_inclusion_count': 'Seeds selecting case',
+        'if_seed_top20_count': 'Seeds selecting case',
+        'stable_anomaly': 'Stable case',
+        'if_stable_8of10': 'Stable case',
+        'largest_deviation_feature': 'Largest deviation feature',
+        'largest_train_scaled_deviation_feature': 'Largest deviation feature',
+    }
+    st.dataframe(
+     d.rename(columns=display_names),
+     use_container_width=True,
+     hide_index=True,
+     on_select='ignore'
+    )
     st.download_button('Download filtered CSV',d.to_csv(index=False).encode('utf-8'),file_name=key+'.csv',mime='text/csv',key=key+'_download')
     if len(d):
-        choices=[f"{i}: {row.get('platform_name','')} | {row.get('category','')} | {row.get('week_start','')}" for i,row in d.reset_index(drop=True).iterrows()]
+        choices=[
+         f"{i}: {row.get('platform_name','')} | " 
+         f"{str(row.get('category', '')).replace('STATEMENT_CATEGORY_', '').replace('_', ' ').title()} | "
+         f"{row.get('week_start','')}" 
+         for i,row in d.reset_index(drop=True).iterrows()
+        ]
         pick=st.selectbox('Inspect original row',range(len(choices)),format_func=lambda i:choices[i],key=key+'_detail')
         with st.expander('Case details',expanded=False):st.json(d.iloc[pick].where(pd.notna(d.iloc[pick]),None).to_dict())
 
@@ -255,7 +287,19 @@ with three:
                      color='series_label',symbol='temporal_alert',
                      hover_data=['platform_name','category','robust_change_score'],
                      title='Robust change scores (original values)')
-        g.update_layout(height=430,legend_title_text='')
+        g.update_layout(height=430, legend_title_text='')
+        seen_series = set()
+        for trace in g.data:
+            series_name = trace.name.rsplit(', ', 1)[0]
+            trace.name = series_name
+            trace.legendgroup = series_name
+            trace.showlegend = series_name not in seen_series
+            seen_series.add(series_name)
+         
+        st.caption(
+            'Scatter marker shapes distinguish frozen temporal alerts '
+            'from non-alert observations.'
+        )
         if zoom != 'Full range':
             bound=10 if zoom=='Zoom: -10 to +10' else 25
             g.update_yaxes(range=[-bound,bound])
@@ -315,7 +359,7 @@ with four:
         st.plotly_chart(fig,use_container_width=True)
         st.caption('Display order uses the original population rank. Filtering does not recalculate scores or ranks. Scores across separately fitted populations should not be compared as calibrated probabilities.')
 
-    st.subheader('Original research records')
+    st.subheader('Selected audit-priority records')
     table(d,'rq4_visible')
     with st.expander('Precomputed model comparison (same population only)'):
         st.dataframe(compare,use_container_width=True,hide_index=True)

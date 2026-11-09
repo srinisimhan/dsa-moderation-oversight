@@ -1,0 +1,89 @@
+{
+  "analysis_type": "Exploratory retrospective temporal holdout, NOT supervised test accuracy",
+  "source_sha256": {
+    "/content/dsa-moderation-oversight/data/dsa_weekly_segments.csv": "fbf0a02694f6828266f72758c2eca27a9b99fb930cca334318123df81c75fecd",
+    "/content/dsa-moderation-oversight/outputs/synopsis/rq4_scored_observations.csv": "68e7cf42d5c74f5075eae2b111bd375615abb54dbce2f45f286aa1e59c5d6734",
+    "/content/dsa-moderation-oversight/outputs/synopsis/summary_metrics.json": "c2790a52c6d1030978af9c97338185d21e315723cc229a6f70e2bd3f74d0150e"
+  },
+  "training_schedule": [
+    {
+      "fold": 1,
+      "first_test_week": "2026-07-06",
+      "candidate_train_weeks": 17,
+      "candidate_test_weeks": 8,
+      "eligible_training_series": 46,
+      "reliable_train_candidate_rows_before_peers": 770,
+      "reliable_test_candidate_rows_before_peers": 368,
+      "train_model_rows": 721,
+      "test_model_rows": 344,
+      "train_temporal_alerts": 15,
+      "test_temporal_alerts": 9,
+      "train_undefined_MAD": 199,
+      "test_undefined_MAD": 96,
+      "test_if_stable_8of10_count": 19,
+      "test_if_all10_count": 18,
+      "min_train_date": "2026-03-09",
+      "max_train_date": "2026-06-29",
+      "min_test_date": "2026-07-06",
+      "max_test_date": "2026-08-24",
+      "train_model_contamination": 0.05,
+      "test_stable_candidate_criteria": "Top20 in >=8 of 10 seeds; no labels"
+    },
+    {
+      "fold": 2,
+      "first_test_week": "2026-07-20",
+      "candidate_train_weeks": 19,
+      "candidate_test_weeks": 6,
+      "eligible_training_series": 47,
+      "reliable_train_candidate_rows_before_peers": 874,
+      "reliable_test_candidate_rows_before_peers": 280,
+      "train_model_rows": 819,
+      "test_model_rows": 262,
+      "train_temporal_alerts": 18,
+      "test_temporal_alerts": 6,
+      "train_undefined_MAD": 223,
+      "test_undefined_MAD": 72,
+      "test_if_stable_8of10_count": 18,
+      "test_if_all10_count": 15,
+      "min_train_date": "2026-03-09",
+      "max_train_date": "2026-07-13",
+      "min_test_date": "2026-07-20",
+      "max_test_date": "2026-08-24",
+      "train_model_contamination": 0.05,
+      "test_stable_candidate_criteria": "Top20 in >=8 of 10 seeds; no labels"
+    }
+  ],
+  "features": [
+    "log1p_represented_sors",
+    "fully_automated_rate",
+    "content_removed_rate",
+    "account_or_service_restriction_rate",
+    "weekly_peer_divergence_abs",
+    "automation_change_abs"
+  ],
+  "random_seeds": [
+    11,
+    22,
+    33,
+    44,
+    55,
+    66,
+    77,
+    88,
+    99,
+    111
+  ],
+  "n_estimators": 300,
+  "model_metrics": "Heldout ranking overlap, stability and sensitivity only",
+  "scaling_fit": "Train-only RobustScaler",
+  "peer_data": "Same-week peers in prequalified training-series cohort; batch-scoring assumption",
+  "eligibility": "Training-prefix reliability count >=12; never full-period reliability filter",
+  "robust_temporal_scores": "Train-only series median and MAD; zero MAD yields undefined",
+  "interpretability": "Largest robust-scaled deviation = context, not feature attribution",
+  "no_ground_truth": "No error, compliance or audit-usefulness labels; not accuracy",
+  "library_versions": {
+    "pandas": "2.2.3",
+    "numpy": "2.1.3",
+    "scikit_learn": "1.6.1"
+  }
+}

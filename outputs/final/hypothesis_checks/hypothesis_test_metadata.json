@@ -1,0 +1,14 @@
+{
+  "seed": 6402026,
+  "permutations": 4000,
+  "exploratory": true,
+  "p_value_type": "Monte Carlo one-sided plus-one",
+  "multiple_testing": "Three separately selected exploratory RQs; no confirmatory familywise claims",
+  "limitations": [
+    "Platform effects may violate exchangeability",
+    "Repeated/clustered units not independent",
+    "Descriptive claims do not imply moderation correctness"
+  ],
+  "scope": "Exploratory category-blocked randomisation checks for RQ1-RQ3 only.",
+  "rq4_handling": "RQ4 evaluated descriptively through shortlist stability, held-out ranking agreement and sensitivity; no ground-truth outcome hypothesis test available."
+}

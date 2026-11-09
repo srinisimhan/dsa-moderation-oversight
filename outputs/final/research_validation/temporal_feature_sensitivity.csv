@@ -1,0 +1,5 @@
+first_test_week,variant,overlap_with_primary_top20,jaccard_with_primary_top20,spearman_with_primary_all_test_rows
+2026-07-06,Remove temporal feature,11,0.3793103448275862,0.9215377903291894
+2026-07-06,Clip temporal to train 1st/99th pct,20,1.0,0.9987527525816047
+2026-07-20,Remove temporal feature,14,0.5384615384615384,0.9436440314658219
+2026-07-20,Clip temporal to train 1st/99th pct,20,1.0,0.9986781926135588

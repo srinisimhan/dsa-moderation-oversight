@@ -1,0 +1,3 @@
+# Streamlit deployment handoff
+
+This replaces the *dashboard implementation* portion of the earlier Gradio handoff. It does not revise the research scope. Use `dashboard/app.py`, `dashboard/requirements.txt`, the existing `outputs/synopsis/` and the included `outputs/interim/model_benchmarks/` and `outputs/final/research_validation/` results. Preserve population separation, all original science outputs and no reviewer or simulated-result features. Deployment is `https://share.streamlit.io/`, repository `srinisimhan/dsa-moderation-oversight`, entrypoint `dashboard/app.py`. See `dashboard/README.md`.

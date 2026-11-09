@@ -1,0 +1,16 @@
+{
+  "outputs/interim/model_benchmarks/rq4_challenger_all_rankings.csv": "24227d3eea5e96a5020861fa19c9de2e1dc885d813bbb27cc96772fac4a8f094",
+  "outputs/interim/model_benchmarks/rq4_challenger_model_comparison.csv": "f8f40add9d073ca1c09c7598172a3f573f7b06dbd0868323adfe1b0d90d2fd7c",
+  "outputs/interim/model_benchmarks/rq4_challenger_top20.csv": "646ac06b4667c2f7c602a74d04a777611f6471de5c204fa2d9cc021a07ca5146",
+  "outputs/interim/model_benchmarks/rq4_challenger_metadata.json": "68736e1cf3aecce0cbe123a1b7fe99d3846f7af010962d9877e31b4a38cc9aee",
+  "outputs/interim/model_benchmarks/rq4_challenger_parameter_sensitivity.csv": "1718529b649f8c435caf68a862ee87c99cd958c39decfa5755785b8369d552d1",
+  "outputs/final/research_validation/holdout_feature_context.png": "60f8b57d184c235ae86bddd45bfada67151d0acd264949279c7458614bf46b8f",
+  "outputs/final/research_validation/temporal_feature_sensitivity.csv": "a4d88c9b48ebf0d33fb878e2dc49104fd4e1ed61e37e234c09472fb5e0eaf1e0",
+  "outputs/final/research_validation/temporal_holdout_comparison.png": "7ba8227766ce26abfcd1f07ee8bbf09a660381eeb5ed0372dfe58d6a534d20e9",
+  "outputs/final/research_validation/temporal_holdout_scored.csv": "54c2ce86eb7964e2880cfc6ec81d152fa5c29cb5878c902718a685f7d73d8867",
+  "outputs/final/research_validation/integrity_checks.csv": "0c197c77c99bc1160be79ae1682b10ffcaaba3791afaeb45252aea7b8ccb8664",
+  "outputs/final/research_validation/temporal_holdout_model_comparison.csv": "bd0f9e0286fbf49ad0b12cc1fc491f0ab46f20d6d6b22952e11bab58cd5a216f",
+  "outputs/final/research_validation/final_validation_manifest.json": "89a0d9a06517e81aa374e3e5a249da15c1aa0a9effca58f913cb04d4724b801d",
+  "outputs/final/hypothesis_checks/hypothesis_test_metadata.json": "d10cd2c0ae213ce3f286e50f66f039f19ca1d027ada7e5237256c55141de79ab",
+  "outputs/final/hypothesis_checks/rq1_rq3_exploratory_tests.csv": "31ea211a31a0cc146062ef3c08b2e17e4ab9927726af24a5974fcc6c81189662"
+}

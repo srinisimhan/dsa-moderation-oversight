@@ -197,7 +197,7 @@ def filters(key, dates=False, search=False):
     return p,c,start,end,q
 
 def table(d,key):
-        display_names = {
+    display_names = {
         'week_start': 'Week starting',
         'platform_name': 'Platform',
         'category': 'DSA category',
